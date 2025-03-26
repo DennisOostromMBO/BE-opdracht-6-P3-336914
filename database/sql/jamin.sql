@@ -109,7 +109,7 @@ INSERT INTO `contact` (`Id`, `Straat`, `Huisnummer`, `Postcode`, `Stad`, `DatumA
 (2, 'Den Dolderlaan', '2', '1067RC', 'Utrecht', '2025-01-20 18:53:57.214094', '2025-01-20 18:53:57.214096'),
 (3, 'Fredo Raalteweg', '257', '1236OP', 'Nijmegen', '2025-01-20 18:53:57.214122', '2025-01-20 18:53:57.214122'),
 (4, 'Bertrand Russellhof', '21', '2034AP', 'Den Haag', '2025-01-20 18:53:57.214132', '2025-01-20 18:53:57.214132'),
-(5, 'Leon van Bonstraat', '213', '145XC', 'Lunter', '2025-01-20 18:53:57.214142', '2025-01-20 18:53:57.214142'),
+(5, 'Leon van Bonstraat', '213', '145XC', 'Lunteren', '2025-01-20 18:53:57.214142', '2025-01-20 18:53:57.214142'),
 (6, 'Bea van Lingenlaan', '234', '2197FG', 'Sint Pancras', '2025-01-20 18:53:57.214150', '2025-01-20 18:53:57.214150');
 
 -- --------------------------------------------------------
@@ -385,46 +385,7 @@ CREATE TABLE IF NOT EXISTS `productperleverancier` (
 -- Gegevens worden geëxporteerd voor tabel `productperleverancier`
 --
 
-INSERT INTO `productperleverancier` (`Id`, `LeverancierId`, `ProductId`, `DatumLevering`, `Aantal`, `DatumEerstVolgendeLevering`, `IsActief`, `Opmerking`, `DatumAangemaakt`, `DatumGewijzigd`) VALUES
-(1, 1, 1, '2024-10-09', 23, '2024-10-16', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(2, 1, 1, '2024-10-18', 21, '2024-10-25', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(3, 1, 2, '2024-10-09', 12, '2024-10-16', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(4, 1, 3, '2024-10-10', 11, '2024-10-17', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(5, 2, 4, '2024-10-14', 16, '2024-10-21', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(6, 2, 4, '2024-10-21', 23, '2024-10-28', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(7, 2, 5, '2024-10-14', 45, '2024-10-21', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(8, 3, 6, '2024-10-10', 30, '2024-10-17', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(9, 3, 7, '2024-10-12', 12, '2024-10-19', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(10, 3, 7, '2024-10-19', 18, '2024-10-26', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(11, 3, 8, '2024-10-10', 12, '2024-10-17', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(12, 3, 9, '2024-10-11', 1, '2024-10-18', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(13, 4, 10, '2024-10-16', 0, '2024-04-30', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(14, 5, 11, '2024-10-10', 47, '2024-10-17', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(15, 5, 11, '2024-10-19', 60, '2024-10-26', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(16, 5, 12, '2024-10-11', 45, '0000-00-00', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(17, 5, 13, '2024-10-12', 23, '0000-00-00', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
-(18, 1, 14, '2024-10-12', 25, '2024-10-19', b'1', NULL, '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839');
-
--- Wijzig de leverancier voor product 14
-UPDATE productperleverancier 
-SET LeverancierId = 7
-WHERE ProductId = 14;
-
--- Eerst alle leveringsdata updaten naar oktober 2023
-UPDATE productperleverancier 
-SET DatumLevering = DATE_SUB(DatumLevering, INTERVAL 1 YEAR)
-WHERE YEAR(DatumLevering) = 2024;
-
--- Dan specifieke data voor test scenario's
-UPDATE productperleverancier SET DatumLevering = '2023-04-09' WHERE Id IN (1, 3);
-UPDATE productperleverancier SET DatumLevering = '2023-04-18' WHERE Id = 2;
-UPDATE productperleverancier SET DatumLevering = '2023-04-10' WHERE Id = 4;
-UPDATE productperleverancier SET DatumLevering = '2023-04-14' WHERE Id = 5;
-UPDATE productperleverancier SET DatumLevering = '2023-04-15' WHERE Id = 6;
-
--- Update productperleverancier data
-TRUNCATE TABLE productperleverancier;
-INSERT INTO productperleverancier (`Id`, `LeverancierId`, `ProductId`, `DatumLevering`, `Aantal`, `DatumEerstVolgendeLevering`, `IsActief`, `DatumAangemaakt`, `DatumGewijzigd`) VALUES
+INSERT INTO `productperleverancier` (`Id`, `LeverancierId`, `ProductId`, `DatumLevering`, `Aantal`, `DatumEerstVolgendeLevering`, `IsActief`, `DatumAangemaakt`, `DatumGewijzigd`) VALUES
 (1, 1, 1, '2023-04-09', 23, '2023-04-16', b'1', '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
 (2, 1, 1, '2023-04-18', 21, '2023-04-25', b'1', '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
 (3, 1, 2, '2023-04-09', 12, '2023-04-16', b'1', '2024-11-13 19:30:05.403839', '2024-11-13 19:30:05.403839'),
@@ -545,6 +506,37 @@ ALTER TABLE `productperleverancier`
 --
 ALTER TABLE `ProductEinddatumLevering`
   ADD CONSTRAINT `FK_ProductEinddatumLevering_ProductId` FOREIGN KEY (`ProductId`) REFERENCES `product` (`Id`) ON DELETE CASCADE;
+
+--
+-- Stored Procedure GetAllProducts
+--
+
+DELIMITER $$
+
+CREATE PROCEDURE GetAllProducts()
+BEGIN
+    SELECT 
+        l.Naam AS LeverancierNaam,
+        l.ContactPersoon,
+        c.Stad,
+        p.Naam AS ProductNaam,
+        pel.EinddatumLevering,
+        ppl.DatumLevering
+    FROM 
+        leverancier l
+    LEFT JOIN 
+        contact c ON l.ContactId = c.Id
+    LEFT JOIN 
+        product p ON l.Id = p.Id
+    LEFT JOIN 
+        ProductEinddatumLevering pel ON p.Id = pel.ProductId
+    LEFT JOIN 
+        productperleverancier ppl ON p.Id = ppl.ProductId
+    ORDER BY 
+        ppl.DatumLevering ASC;
+END$$
+
+DELIMITER ;
 
 COMMIT;
 
