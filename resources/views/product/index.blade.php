@@ -58,7 +58,9 @@
                         <td>{{ $product->ProductNaam }}</td>
                         <td>{{ $product->EinddatumLevering }}</td>
                         <td>
-                            <button type="button" onclick="alert('Verwijder functionaliteit nog niet geïmplementeerd')">❌</button>
+                            <a href="{{ route('product.details', ['id' => $product->ProductId]) }}">
+                                <button type="button">❌</button>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

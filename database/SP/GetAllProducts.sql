@@ -3,6 +3,7 @@ DELIMITER $$
 CREATE PROCEDURE GetAllProducts()
 BEGIN
     SELECT 
+        p.Id AS ProductId, -- Include ProductId in the result set
         l.Naam AS LeverancierNaam,
         l.ContactPersoon,
         c.Stad,

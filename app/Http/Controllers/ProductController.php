@@ -29,4 +29,16 @@ class ProductController extends Controller
 
         return view('product.index', ['products' => $products]);
     }
+
+    public function details($id)
+    {
+        $query = "CALL GetAllProductDetails(?)";
+        $productDetails = DB::select($query, [$id]);
+
+        if (empty($productDetails)) {
+            abort(404, 'Product not found');
+        }
+
+        return view('product.details', ['product' => $productDetails[0]]);
+    }
 }
