@@ -27,7 +27,9 @@
 </head>
 <body>
     <h1 style="text-align: center;">Product Details</h1>
-    <p class="warning">Product kan niet worden verwijderd, datums van vandaag ligt voor einddatum levering</p>
+    @if (!$canDelete)
+        <p class="warning">Product kan niet worden verwijderd, datums van vandaag ligt voor einddatum levering</p>
+    @endif
     <table>
         <tr>
             <th>Naam Product:</th>
@@ -59,7 +61,14 @@
         </tr>
     </table>
     <div style="text-align: center;">
-        <button onclick="alert('Verwijder functionaliteit nog niet geïmplementeerd')">Verwijder</button>
+        @if ($canDelete)
+            <a href="{{ route('product.delete', ['id' => request()->route('id')]) }}" 
+               onclick="return confirm('Weet je zeker dat je dit product wilt verwijderen?')">
+                <button type="button">Verwijder</button>
+            </a>
+        @else
+            <button type="button" disabled style="opacity: 0.5;">Verwijder</button>
+        @endif
     </div>
 </body>
 </html>

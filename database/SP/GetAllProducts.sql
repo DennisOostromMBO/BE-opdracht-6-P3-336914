@@ -3,7 +3,7 @@ DELIMITER $$
 CREATE PROCEDURE GetAllProducts()
 BEGIN
     SELECT 
-        p.Id AS ProductId, -- Include ProductId in the result set
+        p.Id AS ProductId,
         l.Naam AS LeverancierNaam,
         l.ContactPersoon,
         c.Stad,
@@ -11,15 +11,15 @@ BEGIN
         pel.EinddatumLevering,
         ppl.DatumLevering
     FROM 
-        leverancier l
+        product p
+    LEFT JOIN 
+        productperleverancier ppl ON p.Id = ppl.ProductId
+    LEFT JOIN 
+        leverancier l ON ppl.LeverancierId = l.Id
     LEFT JOIN 
         contact c ON l.ContactId = c.Id
     LEFT JOIN 
-        product p ON l.Id = p.Id
-    LEFT JOIN 
         ProductEinddatumLevering pel ON p.Id = pel.ProductId
-    LEFT JOIN 
-        productperleverancier ppl ON p.Id = ppl.ProductId
     ORDER BY 
         ppl.DatumLevering ASC;
 END$$

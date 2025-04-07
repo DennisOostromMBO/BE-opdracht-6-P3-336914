@@ -20,10 +20,37 @@
         .search-container {
             margin-bottom: 20px;
         }
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .error-message {
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <h1>Overzicht producten uit het assortiment</h1>
+    
+    @if (session('success'))
+        <div class="success-message">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="error-message">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="search-container">
         <form method="GET" action="{{ route('product.index') }}">
             <label for="startdatum">Startdatum:</label>
